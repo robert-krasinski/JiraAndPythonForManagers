@@ -22,3 +22,5 @@ output_7_0.png
 *.png
 
 .ipynb_checkpoints/Changes in epic-checkpoint.ipynb
+
+.idea/vcs.xml
