@@ -9,7 +9,7 @@ http://jupyter.readthedocs.io/en/latest/install.html
 https://help.github.com/articles/cloning-a-repository/
 
 # Set up Jira credentials
-https://gist.github.com/robert-krasinski/c677a470a11050355617ca1f0822a37b.js
+https://gist.github.com/robert-krasinski/c677a470a11050355617ca1f0822a37b
 
 # Run
 Execute: 'jupyter notebook' command from cloned repository folder
