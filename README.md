@@ -1,4 +1,4 @@
-# JiraAndPythonForManagers
+# Jira And Python For Managers
 Ideas on how to use Jira with Python 
 
 
