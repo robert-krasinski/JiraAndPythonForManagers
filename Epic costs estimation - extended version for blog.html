@@ -11845,7 +11845,7 @@ Set Jira url
 
 <span class="c1">#load all open epics </span>
 <span class="n">jql</span> <span class="o">=</span> <span class="s1">&#39;project=VXT and type=epic and status not in (Completed, Rejected)&#39;</span>
-
+<span class="c1">#Jira credentials are stored in ~/.rcnet file </span>
 <span class="n">epicsRaw</span> <span class="o">=</span> <span class="n">jira</span><span class="o">.</span><span class="n">search_issues</span><span class="p">(</span><span class="n">jql</span><span class="p">)</span>
 
 <span class="n">epics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
