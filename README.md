@@ -17,5 +17,5 @@ Execute: 'jupyter notebook' command from cloned repository folder
 
 
 Examples:
-* [Backlog health score](https://github.io/robert-krasinski/JiraAndPythonForManagers/Backlog%20health%20score-Extended%20version%20for%20blog.html)
-* [Epic development cost estimation](https://github.io/robert-krasinski/JiraAndPythonForManagers/Epic%20costs%20estimation%20-%20extended%20version%20for%20blog.html)
+* [Backlog health score](https://robert-krasinski.github.io/JiraAndPythonForManagers/Backlog%20health%20score-Extended%20version%20for%20blog.html)
+* [Epic development cost estimation](https://robert-krasinski.github.io/JiraAndPythonForManagers/Epic%20costs%20estimation%20-%20extended%20version%20for%20blog.html)
