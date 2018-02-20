@@ -14,3 +14,8 @@ https://gist.github.com/robert-krasinski/c677a470a11050355617ca1f0822a37b
 
 # Run
 Execute: 'jupyter notebook' command from cloned repository folder
+
+
+Examples:
+* [Backlog health score](https://github.io/robert-krasinski/JiraAndPythonForManagers/Backlog%20health%20score-Extended%20version%20for%20blog.html)
+* [Epic development cost estimation](https://github.io/robert-krasinski/JiraAndPythonForManagers/Epic%20costs%20estimation%20-%20extended%20version%20for%20blog.html)
