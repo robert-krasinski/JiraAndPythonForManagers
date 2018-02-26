@@ -11778,7 +11778,7 @@ div#notebook {
 <h1 id="Backlog-scoring-calculations">Backlog scoring calculations<a class="anchor-link" href="#Backlog-scoring-calculations">&#182;</a></h1><h2 id="How-healthy-is-your-backlog?">How healthy is your backlog?<a class="anchor-link" href="#How-healthy-is-your-backlog?">&#182;</a></h2><p>In the fast paced development project environment it's very important to have meaningful and easy to understand metrics. Those metrics are foundation of data-driven decisions and can give you and the team sense of direction in everyday actions.</p>
 <p>Here, I'd like to present idea of backlog scoring - one number that could give you meaningful information about the shape of a backlog in your team.</p>
 <p>Quantified backlog state is simply sum of scoring for chosen rules that are summed and multiplied by maximium score. The result should be a number from 1-10 (1 - worst, 10 - best). 
-$$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
+$$Backlog\ Score=\sum_{i=0}^n score_i * weight_i * MaxScore$$</p>
 <p>Using the persistence capabilities of Jupyter Notebook it will be also possible to track the trend of the scoring in time.</p>
 
 </div>
@@ -11786,7 +11786,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">jira</span> <span class="k">import</span> <span class="n">JIRA</span>
@@ -11810,7 +11810,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here I'd like to propose 4 rules:</p>
 <ul>
-<li>In next 2 sprints there are items in Backlog state that SP sum is greater than estimated velocity, there are no items assigned to sprint that are not in Backlog state - [Y/N]</li>
+<li>% of planned 2 sprints. there are items in Backlog state that SP sum is equal to estimated velocity (+-20%), there are no items assigned to sprint that are not in Backlog state</li>
 <li>Planned next 3 versions (all items estimated and in Backlog or started state (not in presprint) - [Y/N]</li>
 <li>% of Must, Urgent, Should items that are estimated regardless of status'</li>
 <li>% of key milestone (major version) items estimated and in Backlog status</li>
@@ -11823,7 +11823,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#to show full rules descriptions</span>
@@ -11834,7 +11834,8 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 <span class="n">rules</span><span class="p">[</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">rules</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">rules</span><span class="p">[</span><span class="s1">&#39;rule&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#In next 2 sprints there are items in Backlog state that SP sum is equal to estimated velocity (+-20%) - Y/N&#39;</span><span class="p">,</span>
+<span class="n">rules</span><span class="p">[</span><span class="s1">&#39;rule&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f planned 2 sprints. there are items in Backlog state that SP sum is equal to estimated velocity </span><span class="se">\</span>
+<span class="s1">(+-20%), there are no items assigned to sprint that are not in Backlog state&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;Planned next 3 versions (all items estimated and in Backlog or started state (not in presprint) - Y/N&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f Must, Urgent, Should items that are estimated regardless of status&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f key milestone items estimated and in Backlog status&#39;</span><span class="p">]</span>
@@ -11853,7 +11854,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[18]:</div>
+<div class="prompt output_prompt">Out[72]:</div>
 
 
 
@@ -11884,7 +11885,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>#In next 2 sprints there are items in Backlog state that SP sum is equal to estimated velocity (+-20%) - Y/N</td>
+      <td>% of planned 2 sprints. there are items in Backlog state that SP sum is equal to estimated velocity (+-20%), there are no items assigned to sprint that are not in Backlog state</td>
       <td>0.40</td>
       <td>NaN</td>
     </tr>
@@ -11928,7 +11929,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">rules</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
@@ -11944,7 +11945,7 @@ $$Backlog\ Score=\sum_{i=0}^n score^i * weight^i * MaxScore$$</p>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[5]:</div>
+<div class="prompt output_prompt">Out[73]:</div>
 
 
 
@@ -11973,14 +11974,14 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#velocity used to check if sprints are planned correctly</span>
 <span class="n">estimatedVelocity</span> <span class="o">=</span> <span class="mi">14</span>
 
 <span class="n">nextVersions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1.12&#39;</span><span class="p">,</span> <span class="s1">&#39;1.13&#39;</span><span class="p">,</span> <span class="s1">&#39;1.14&#39;</span><span class="p">,</span> <span class="s1">&#39;1.15&#39;</span><span class="p">,</span> <span class="s1">&#39;1.16&#39;</span><span class="p">]</span>
-<span class="n">milestones</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Frimley MVP&#39;</span><span class="p">]</span>
+<span class="n">milestones</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Milestone 1&#39;</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -11999,7 +12000,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">jira_url</span> <span class="o">=</span> <span class="s1">&#39;https://kainos-evolve.atlassian.net&#39;</span>
@@ -12023,7 +12024,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#download next 2 sprints names</span>
@@ -12063,7 +12064,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[8]:</div>
+<div class="prompt output_prompt">Out[76]:</div>
 
 
 
@@ -12078,18 +12079,27 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First rule focus on the next 2 sprints. To achieve max result issues in 2 of next sprints should be refined and estimated. The calculated velocity for each next sprint should be similar to estimated in +-20% range.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#rule 0</span>
 <span class="c1">#In next 2 sprints there are items in Backlog state that SP sum is equal to estimated velocity (+-20%), </span>
-<span class="c1">#there are no items assigned to sprint that are not in Backlog state - Y/N</span>
+<span class="c1">#there are no items assigned to sprint that are not in Backlog state </span>
 <span class="c1">#bugs don&#39;t have to be estimated</span>
 
 <span class="c1"># find all issues in specified sprints that are not bugs and are in backlog status</span>
-<span class="n">jql</span> <span class="o">=</span> <span class="s1">&#39;sprint in (&quot;</span><span class="si">{}</span><span class="s1">&quot;) and type != Bug and status = Backlog and type not in subTaskIssueTypes()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nextSprints</span><span class="p">))</span>
+<span class="n">jql</span> <span class="o">=</span> <span class="s1">&#39;sprint in (&quot;</span><span class="si">{}</span><span class="s1">&quot;) and status in (Backlog, &quot;Ready to test&quot;) and type not in subTaskIssueTypes()&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nextSprints</span><span class="p">))</span>
 <span class="n">jql</span>
 
 <span class="n">issuesRaw</span> <span class="o">=</span> <span class="n">jira</span><span class="o">.</span><span class="n">search_issues</span><span class="p">(</span><span class="n">jql</span><span class="p">)</span>
@@ -12129,9 +12139,10 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 <span class="n">sprints</span> <span class="o">=</span> <span class="n">sprints</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">sprints</span><span class="p">[</span><span class="s1">&#39;SP&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">estimatedVelocity</span> <span class="o">-</span> <span class="n">estimatedVelocity</span> <span class="o">*</span> <span class="o">.</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
                      <span class="p">(</span><span class="n">sprints</span><span class="p">[</span><span class="s1">&#39;SP&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">estimatedVelocity</span> <span class="o">+</span> <span class="n">estimatedVelocity</span> <span class="o">*</span> <span class="o">.</span><span class="mi">2</span><span class="p">)]</span>
 
-<span class="c1">#number of sprints that meet condition should be equal to number of next sprints</span>
-<span class="n">rule_value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sprints</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">nextSprints</span><span class="p">))</span>
-<span class="n">rules</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rule_value</span><span class="p">)</span>
+<span class="c1">#% of sprints that meet condition should be equal to number of next sprints</span>
+<span class="n">rule_value</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sprints</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">nextSprints</span><span class="p">)</span>
+<span class="n">rule_value</span>
+<span class="n">rules</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rule_value</span>
 </pre></div>
 
 </div>
@@ -12144,20 +12155,20 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[17]:</div>
+<div class="prompt output_prompt">Out[84]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;sprint in (&#34;IC - #5 20180305 - 1.14&#34;, &#34;IC - #6 20180319 - 1.14&#34;) and type != Bug and status = Backlog and type not in subTaskIssueTypes()&#39;</pre>
+<pre>&#39;sprint in (&#34;IC - #5 20180305 - 1.14&#34;, &#34;IC - #6 20180319 - 1.14&#34;) and status in (Backlog, &#34;Ready to test&#34;) and type not in subTaskIssueTypes()&#39;</pre>
 </div>
 
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[17]:</div>
+<div class="prompt output_prompt">Out[84]:</div>
 
 
 
@@ -12191,6 +12202,34 @@ They can be loaded automatically from Jira but this is not a scope of this artic
   <tbody>
     <tr>
       <th>0</th>
+      <td>VXT-4087</td>
+      <td>IC - #6 20180319 - 1.14</td>
+      <td>2.0</td>
+      <td>Bug</td>
+      <td>Backlog</td>
+      <td>Summary...</td>
+    </tr>
+    
+    <tr>
+      <th>2</th>
+      <td>VXT-4026</td>
+      <td>IC - #5 20180305 - 1.14</td>
+      <td>2.0</td>
+      <td>Bug</td>
+      <td>Backlog</td>
+      <td>Summary...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>VXT-3993</td>
+      <td>IC - #6 20180319 - 1.14</td>
+      <td>3.0</td>
+      <td>Bug</td>
+      <td>Backlog</td>
+      <td>Summary...</td>
+    </tr>
+    <tr>
+      <th>4</th>
       <td>VXT-3969</td>
       <td>IC - #5 20180305 - 1.14</td>
       <td>3.0</td>
@@ -12199,7 +12238,16 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>Summary...</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>5</th>
+      <td>VXT-3904</td>
+      <td>IC - #6 20180319 - 1.14</td>
+      <td>1.0</td>
+      <td>Story</td>
+      <td>Ready to Test</td>
+      <td>Summary...</td>
+    </tr>
+    <tr>
+      <th>6</th>
       <td>VXT-3759</td>
       <td>IC - #5 20180305 - 1.14</td>
       <td>3.0</td>
@@ -12208,20 +12256,38 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>Summary...</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>VXT-2377</td>
+      <th>7</th>
+      <td>VXT-3678</td>
       <td>IC - #6 20180319 - 1.14</td>
-      <td>NaN</td>
-      <td>External Bug</td>
+      <td>3.0</td>
+      <td>Story</td>
       <td>Backlog</td>
       <td>Summary...</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>VXT-1473</td>
-      <td>IC - #6 20180319 - 1.14</td>
-      <td>3.0</td>
+      <th>8</th>
+      <td>VXT-3082</td>
+      <td>IC - #5 20180305 - 1.14</td>
+      <td>8.0</td>
       <td>Story</td>
+      <td>Ready to Test</td>
+      <td>Summary...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>VXT-2066</td>
+      <td>IC - #6 20180319 - 1.14</td>
+      <td>1.0</td>
+      <td>Story</td>
+      <td>Backlog</td>
+      <td>Summary...</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>VXT-1648</td>
+      <td>IC - #5 20180305 - 1.14</td>
+      <td>2.0</td>
+      <td>Bug</td>
       <td>Backlog</td>
       <td>Summary...</td>
     </tr>
@@ -12234,7 +12300,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[17]:</div>
+<div class="prompt output_prompt">Out[84]:</div>
 
 
 
@@ -12267,11 +12333,11 @@ They can be loaded automatically from Jira but this is not a scope of this artic
   <tbody>
     <tr>
       <th>IC - #5 20180305 - 1.14</th>
-      <td>6.0</td>
+      <td>18.0</td>
     </tr>
     <tr>
       <th>IC - #6 20180319 - 1.14</th>
-      <td>3.0</td>
+      <td>12.0</td>
     </tr>
   </tbody>
 </table>
@@ -12280,13 +12346,36 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 </div>
 
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[84]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.5</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>2nd rule checks if 3 next versions in Jira (manually set up above) are initially estimated. Initial estimation in Story Points with team velocity can give us view on when the team will be ready to deliver specified versions.</p>
+<p>To see how to create stacked burndown for multiple versions see: [<a href="https://github.com/robert-krasinski/JiraAndPythonForManagers/blob/master/Burndown%20chart%20for%20multiple%20versions.ipynb">https://github.com/robert-krasinski/JiraAndPythonForManagers/blob/master/Burndown%20chart%20for%20multiple%20versions.ipynb</a>]</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#rule 1 Planned next 3 versions (all items estimated and in Backlog or started state (not in state before backlog) - Y/N</span>
@@ -12354,7 +12443,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[10]:</div>
+<div class="prompt output_prompt">Out[78]:</div>
 
 
 
@@ -12367,7 +12456,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[10]:</div>
+<div class="prompt output_prompt">Out[78]:</div>
 
 
 
@@ -12403,19 +12492,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
   </thead>
   <tbody>
     <tr>
-      <th>26</th>
-      <td>VXT-3938</td>
-      <td>1.13</td>
-      <td>NaN</td>
-      <td>Story</td>
-      <td>Tech Refinement</td>
-      <td>Summary...</td>
-      <td>Gdansk Team 1</td>
-      <td>False</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>37</th>
+      <th>42</th>
       <td>VXT-3736</td>
       <td>1.13</td>
       <td>NaN</td>
@@ -12427,10 +12504,22 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>True</td>
     </tr>
     <tr>
-      <th>8</th>
-      <td>VXT-4028</td>
+      <th>31</th>
+      <td>VXT-3938</td>
       <td>1.13</td>
-      <td>2.0</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>Gdansk Team 1</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>VXT-4061</td>
+      <td>1.15</td>
+      <td>8.0</td>
       <td>Story</td>
       <td>Tech Refinement</td>
       <td>Summary...</td>
@@ -12439,12 +12528,48 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>True</td>
     </tr>
     <tr>
-      <th>42</th>
-      <td>VXT-3678</td>
-      <td>1.14</td>
+      <th>10</th>
+      <td>VXT-4062</td>
+      <td>1.15</td>
+      <td>8.0</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>Gdansk Team 1</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>VXT-4063</td>
+      <td>1.15</td>
       <td>NaN</td>
       <td>Story</td>
-      <td>Estimation</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>Gdansk Team 1</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>VXT-4064</td>
+      <td>1.15</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>Gdansk Team 1</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>VXT-4065</td>
+      <td>1.15</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
       <td>Summary...</td>
       <td>Gdansk Team 1</td>
       <td>False</td>
@@ -12452,7 +12577,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     </tr>
     <tr>
       <th>6</th>
-      <td>VXT-4061</td>
+      <td>VXT-4066</td>
       <td>1.15</td>
       <td>NaN</td>
       <td>Story</td>
@@ -12463,19 +12588,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>True</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>VXT-4062</td>
-      <td>1.15</td>
-      <td>NaN</td>
-      <td>Story</td>
-      <td>Tech Refinement</td>
-      <td>Summary...</td>
-      <td>Gdansk Team 1</td>
-      <td>False</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>21</th>
+      <th>26</th>
       <td>VXT-3986</td>
       <td>1.16</td>
       <td>NaN</td>
@@ -12497,9 +12610,18 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>3rd rule ensures that high priority items are estimated (except Bug type). There is plenty of space for improvement here. For example you could measure how many high priority bugs in Backlog are stored there specific time treshold.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#rule 2</span>
@@ -12551,7 +12673,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[19]:</div>
+<div class="prompt output_prompt">Out[79]:</div>
 
 
 
@@ -12564,7 +12686,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[19]:</div>
+<div class="prompt output_prompt">Out[79]:</div>
 
 
 
@@ -12623,7 +12745,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>1.13</td>
       <td>3.0</td>
       <td>Story</td>
-      <td>Backlog</td>
+      <td>In Development</td>
       <td>Summary...</td>
       <td>URGENT</td>
     </tr>
@@ -12633,7 +12755,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>1.12</td>
       <td>1.0</td>
       <td>Story</td>
-      <td>Backlog</td>
+      <td>In Development</td>
       <td>Summary...</td>
       <td>SHOULD</td>
     </tr>
@@ -12643,23 +12765,23 @@ They can be loaded automatically from Jira but this is not a scope of this artic
       <td>1.12</td>
       <td>2.0</td>
       <td>Story</td>
-      <td>In Development</td>
-      <td>Release 1.12</td>
+      <td>In Testing</td>
+      <td>Summary...</td>
       <td>SHOULD</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>VXT-4062</td>
+      <td>VXT-4066</td>
       <td>1.15</td>
       <td>NaN</td>
       <td>Story</td>
       <td>Tech Refinement</td>
       <td>Summary...</td>
-      <td>MUST</td>
+      <td>SHOULD</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>VXT-4061</td>
+      <td>VXT-4065</td>
       <td>1.15</td>
       <td>NaN</td>
       <td>Story</td>
@@ -12669,9 +12791,9 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     </tr>
     <tr>
       <th>7</th>
-      <td>VXT-4028</td>
-      <td>1.13</td>
-      <td>2.0</td>
+      <td>VXT-4064</td>
+      <td>1.15</td>
+      <td>NaN</td>
       <td>Story</td>
       <td>Tech Refinement</td>
       <td>Summary...</td>
@@ -12679,13 +12801,33 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     </tr>
     <tr>
       <th>8</th>
-      <td>VXT-4025</td>
-      <td>1.13</td>
-      <td>2.0</td>
+      <td>VXT-4063</td>
+      <td>1.15</td>
+      <td>NaN</td>
       <td>Story</td>
-      <td>In Code review</td>
+      <td>Tech Refinement</td>
+      <td>Summary...s</td>
+      <td>MUST</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>VXT-4062</td>
+      <td>1.15</td>
+      <td>8.0</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
       <td>Summary...</td>
-      <td>SHOULD</td>
+      <td>MUST</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>VXT-4061</td>
+      <td>1.15</td>
+      <td>8.0</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>MUST</td>
     </tr>
   </tbody>
 </table>
@@ -12698,9 +12840,18 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this particular project versions are grouped into bigger milestone releases. The important information is how many of those milestone items are estimated and ready to be picked up by developers. 4th rule is checking this.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># % of key milestone items estimated and in Backlog status</span>
@@ -12752,20 +12903,20 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[12]:</div>
+<div class="prompt output_prompt">Out[80]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;project = VXT and type != Epic and status not in (Rejected, Completed) and type not in subTaskIssueTypes() and fixVersion in (&#34;Frimley MVP&#34;)&#39;</pre>
+<pre>&#39;project = VXT and type != Epic and status not in (Rejected, Completed) and type not in subTaskIssueTypes() and fixVersion in (&#34;Milestone 1&#34;)&#39;</pre>
 </div>
 
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[12]:</div>
+<div class="prompt output_prompt">Out[80]:</div>
 
 
 
@@ -12801,7 +12952,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     <tr>
       <th>0</th>
       <td>VXT-4110</td>
-      <td>Frimley MVP</td>
+      <td>Milestone 1</td>
       <td>3.0</td>
       <td>Story</td>
       <td>In Development</td>
@@ -12811,7 +12962,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     <tr>
       <th>1</th>
       <td>VXT-4109</td>
-      <td>Frimley MVP</td>
+      <td>Milestone 1</td>
       <td>3.0</td>
       <td>Story</td>
       <td>Backlog</td>
@@ -12821,28 +12972,28 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     <tr>
       <th>2</th>
       <td>VXT-4100</td>
-      <td>Frimley MVP</td>
+      <td>Milestone 1</td>
       <td>3.0</td>
       <td>Story</td>
-      <td>Backlog</td>
+      <td>In Development</td>
       <td>Summary...</td>
       <td>True</td>
     </tr>
     <tr>
       <th>3</th>
       <td>VXT-4098</td>
-      <td>Frimley MVP</td>
+      <td>Milestone 1</td>
       <td>1.0</td>
       <td>Story</td>
-      <td>Backlog</td>
+      <td>In Development</td>
       <td>Summary...</td>
       <td>True</td>
     </tr>
     <tr>
       <th>4</th>
       <td>VXT-4087</td>
-      <td>Frimley MVP</td>
-      <td>NaN</td>
+      <td>Milestone 1</td>
+      <td>2.0</td>
       <td>Bug</td>
       <td>Backlog</td>
       <td>Summary...</td>
@@ -12851,14 +13002,54 @@ They can be loaded automatically from Jira but this is not a scope of this artic
     <tr>
       <th>5</th>
       <td>VXT-4085</td>
-      <td>Frimley MVP</td>
+      <td>Milestone 1</td>
       <td>NaN</td>
       <td>Bug</td>
       <td>Backlog</td>
       <td>Summary...</td>
       <td>True</td>
     </tr>
-
+    <tr>
+      <th>6</th>
+      <td>VXT-4066</td>
+      <td>Milestone 1</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>VXT-4065</td>
+      <td>Milestone 1</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>VXT-4064</td>
+      <td>Milestone 1</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>VXT-4063</td>
+      <td>Milestone 1</td>
+      <td>NaN</td>
+      <td>Story</td>
+      <td>Tech Refinement</td>
+      <td>Summary...</td>
+      <td>False</td>
+    </tr>
+    
   </tbody>
 </table>
 </div>
@@ -12868,13 +13059,13 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[12]:</div>
+<div class="prompt output_prompt">Out[80]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.85</pre>
+<pre>0.87</pre>
 </div>
 
 </div>
@@ -12882,10 +13073,19 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Scoring calculation for each rule is quite simple.</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rules</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rules</span><span class="o">.</span><span class="n">weight</span> <span class="o">*</span> <span class="n">rules</span><span class="o">.</span><span class="n">value</span> <span class="o">*</span> <span class="mi">10</span>
@@ -12902,7 +13102,7 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[13]:</div>
+<div class="prompt output_prompt">Out[85]:</div>
 
 
 
@@ -12934,31 +13134,31 @@ They can be loaded automatically from Jira but this is not a scope of this artic
   <tbody>
     <tr>
       <th>0</th>
-      <td>In next 2 sprints there are items in Backlog state that SP sum is greater than estimated velocity, there are no items assigned to sprint that are not in Backlog state - Y/N</td>
+      <td>% of planned 2 sprints. there are items in Backlog state that SP sum is equal to estimated velocity (+-20%), there are no items assigned to sprint that are not in Backlog state</td>
       <td>0.40</td>
-      <td>0.00</td>
-      <td>0.000</td>
+      <td>0.50</td>
+      <td>2.00</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Planned next 3 versions (all items estimated and in Backlog or started state (not in presprint) - Y/N</td>
       <td>0.25</td>
       <td>0.00</td>
-      <td>0.000</td>
+      <td>0.00</td>
     </tr>
     <tr>
       <th>2</th>
       <td>% of Must, Urgent, Should items that are estimated regardless of status</td>
       <td>0.25</td>
-      <td>0.71</td>
-      <td>1.775</td>
+      <td>0.64</td>
+      <td>1.60</td>
     </tr>
     <tr>
       <th>3</th>
       <td>% of key milestone items estimated and in Backlog status</td>
       <td>0.10</td>
-      <td>0.85</td>
-      <td>0.850</td>
+      <td>0.87</td>
+      <td>0.87</td>
     </tr>
   </tbody>
 </table>
@@ -12971,9 +13171,19 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>The scoring alone is not as important as the trend of its values in time. Using %store command of Jupyter Notebook you can conveniently store variables locally to create chart with scoring values.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">score</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">rules</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]),</span> <span class="mi">2</span><span class="p">)</span>
@@ -13023,14 +13233,14 @@ They can be loaded automatically from Jira but this is not a scope of this artic
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Stored &#39;scores&#39; (DataFrame)
-Backlog score 2.62 / 10
+Backlog score 4.47 / 10
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[15]:</div>
+<div class="prompt output_prompt">Out[86]:</div>
 
 
 
@@ -13049,7 +13259,7 @@ Backlog score 2.62 / 10
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAYIAAAEtCAYAAAAFsGeyAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADl0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uIDIuMS4yLCBodHRwOi8vbWF0cGxvdGxpYi5vcmcvNQv5yAAAGkpJREFUeJzt3XmYZQV95vHv290sCpEt7QLIaNDgkrBoQ4yYuGAmoJHMg8uYiNFo0slMXOIzSTBONBmDhpi4xlHDICJC0AgqPhqNRhR0AmjLoiKCIhMEQTsEgkRl69/8cU7R1UVV9aVu3XtO1fl+nqeeuufc0/e8dW7XfevsqSokScO1pusAkqRuWQSSNHAWgSQNnEUgSQNnEUjSwFkEkjRwEyuCJCcn+X6Sr80at2eSTyf5Zvt9j0nNX5I0mkmuEZwCHDln3CuBz1TVw4HPtMOSpA5lkieUJXkI8LGq+pl2+ArgSVV1fZIHAZ+rqgMmFkCStF3rpjy/B1TV9e3jG4AHLDRhko3ARoBddtnlsY94xCOmEE+SVo8vf/nL/1pV67c33bSL4G5VVUkWXB2pqhOBEwE2bNhQmzZtmlo2SVoNkvzLKNNN+6ih77WbhGi/f3/K85ckzTHtIvgo8IL28QuAs6c8f0nSHJM8fPQM4HzggCTXJnkxcALwS0m+CTy1HZYkdWhi+wiq6tcWeOqISc1TknTveWaxJA2cRSBJA2cRSNLAWQSSNHAWgSQNnEUgSQNnEUjSwFkEkjRwFoEkDZxFIEkDZxFI0sBZBJI0cBaBJA2cRSBJA2cRSNLAWQSSNHAWgSQNnEUgSQNnEUjSwFkEkjRwFoEkDZxFIEkDZxFI0sBZBJI0cBaBJA2cRSBJA2cRSNLAWQSSNHAWgSQNnEUgSQNnEUjSwFkEkjRwFoEkDZxFIEkDZxFI0sB1UgRJXpHksiRfS3JGkp27yCFJ6qAIkuwDvAzYUFU/A6wFnjvtHJKkRlebhtYB90myDrgv8N2OckjS4E29CKrqOuCvgWuA64F/r6pPzZ0uycYkm5Js2rx587RjStJgdLFpaA/gV4GHAnsDuyQ5du50VXViVW2oqg3r16+fdkxJGowuNg09Fbi6qjZX1R3Ah4DHd5BDkkQ3RXAN8Lgk900S4Ajg8g5ySJLoZh/BhcCZwEXAV9sMJ047hySpsa6LmVbVnwJ/2sW8JUnb8sxiSRo4i0CSBs4ikKSBswgkaeAsAkkaOItAkgbOIpCkgbMIJGngLAJJGjiLQJIGziKQpIGzCCRp4CwCSRo4i0CSBs4ikKSBswgkaeAsAkkaOItAkgbOIpCkgbMIJGngLAJJGjiLQJIGziKQpIGzCCRp4CwCSRo4i0CSBm7kIkhy30kGkSR1Y7tFkOTxSb4OfKMdPijJOyaeTJI0FaOsEbwZ+GXgRoCquhT4xUmGkiRNz0ibhqrqO3NG3TWBLJKkDqwbYZrvJHk8UEl2AF4OXD7ZWJKkaRlljeB3gd8D9gGuAw5uhyVJq8CiawRJ1gLPr6rnTSmPJGnKFl0jqKq7gF+fUhZJUgdG2UfwhSRvBz4A/MfMyKq6aKkzTbI7cBLwM0ABL6qq85f6epKkpRulCA5uv7921rgCnjLGfN8KfLKqnpVkR8CT1SSpI9stgqp68nLOMMluNOchvLB9/duB25dzHpKk0Y1yZvFuSd6UZFP79cb2w3ypHgpsBt6T5OIkJyXZZZ75bpyZ5+bNm8eYnSRpMaMcPnoy8APgOe3XLcB7xpjnOuAxwDur6hCa/Q6vnDtRVZ1YVRuqasP69evHmJ0kaTGj7CPYv6qeOWv4fyW5ZIx5XgtcW1UXtsNnMk8RSJKmY5Q1gh8lecLMQJLDgR8tdYZVdQPN2coHtKOOAL6+1NeTJI1nlDWC/wa8d9Z+gZtod/SO4aXA6e0RQ98GfnPM15MkLdEoRw1dAhyU5H7t8C3jzrR9zQ3jvo4kaXyjHDX0+iS7V9UtVXVLkj2SHD+NcJKkyRtlH8FRVXXzzEBV3QQ8bXKRJEnTNEoRrE2y08xAkvsAOy0yvSRpBRllZ/HpwGeSzJw78JvAeycXSZI0TaPsLP7LJJcCT21H/XlV/eNkY0mSpmW7RdBe/uFTVfXJ9tj/A5LsUFV3TD6eJGnSRtlHcB6wc5J9gE8CzwdOmWQoSdL0jFIEqaofAsfQXB/o2cCjJxtLkjQtIxVBkp8Hngd8vB23dnKRJEnTNEoRvBz4Y+DDVXVZkp8CPjvZWJKkaRnlqKHzaPYTzAx/G3jZJENJkqZnlDUCSdIqZhFI0sBZBJI0cKOcUPa2eUb/O7Cpqs5e/kiSpGkaZY1gZ+Bg4Jvt14HAvsCLk7xlgtkkSVMwykXnDgQOr6q7AJK8E/g88ATgqxPMJkmaglHWCPYAdp01vAuwZ1sMt00klSRpakZZI3gDcEmSzwEBfhF4fXsxun+aYDZJ0hSMckLZu5P8A3BYO+pVVfXd9vEfTiyZJGkqRlkjADgU+IX28Rbgu4tMK0laQUa5ef0JNNcb+nr79bIkr590MEnSdIyyRvA04OCq2gKQ5L3AxcCrJhlMkjQdo55ZvPusx7tNIogkqRujrBH8BXBxks+y9aihV040lSRpakY5auiM9tDRQ9tRx1XVDRNNJUmamgWLIMlj5oy6tv2+d5K9q+qiycWSJE3LYmsEb1zkuQKessxZJEkdWLAIqurJAEnWzBwxNCPJzpMOJkmajlGOGjpp9kB7aYmPLzCtJGmFGaUIrkvyDoAkewCfBk6baCpJ0tRstwiq6tXArUneBXwKeGNVvWfiySRJU7HYUUPHzBq8EHg18EWgkhxTVR+adDhJ0uQtdtTQM+YMXwzs0I4vwCKQpFVgsaOGfnOaQSRJ3Rjl6qPvTbL7rOE9kpw87oyTrE1ycZKPjftakqSlG+WooQOr6uaZgaq6CThkGeb9cuDyZXgdSdIYRimCNe1howAk2ZPRb2gzryT7Ak9nzjkKkqTpG+UD/Y3A+Uk+SHP10WcBrxtzvm8B/gj4iYUmSLIR2Aiw3377jTk7SdJCRjmP4FTgmcD3gBuAY6rqfUudYZJfAb5fVV/eznxPrKoNVbVh/fr1S52dJGk7RtrEU1WXJdkM7AyQZL+qumaJ8zwcODrJ09rXu1+S06rq2CW+niRpDKMcNXR0km8CVwPnAv8P+MRSZ1hVf1xV+1bVQ4DnAudYApLUnVF2Fv858Djgyqp6KHAEcMFEU0mSpmaUIrijqm6kOXpoTVV9FtiwHDOvqs9V1a8sx2tJkpZmlH0ENyfZFTgPOD3J94H/mGwsSdK0jLJG8KvAD4FXAJ8EruKe1yGSJK1Qo9y8fuav/y1JPg7cWFU12ViSpGlZcI0gyeOSfC7Jh5IckuRrwNeA7yU5cnoRJUmTtNgawduBVwG7AecAR1XVBUkeAZxBs5lIkrTCLbaPYF1VfaqqPgjcUFUXAFTVN6YTTZI0DYsVwZZZj3805zn3EUjSKrHYpqGDktxCc6G5+7SPaYd3nngySdJULHaHsrXTDCJJ6sYo5xFIklYxi0CSBs4ikKSBswgkaeAsAkkaOItAkgbOIpCkgbMIJGngLAJJGjiLQJIGziKQpIGzCCRp4CwCSRq47d6zWPfS+efDqac2j3/jN+Dnf37h6T73OdhrL7jxRnjSkxaetu9mfpaV/DNIS7Hc//dnvx5M7ffKIlhO554LT3kKbGnv6fO3fwsHHAC77rrtdLfeCldcATXr/j7J/NP23eyfZaX+DNJSLPf//bmfC0nzeOed4ZxzJloGFsFyevWrt5YANG/ili1w//tvO90tt2xbAotN23ezf5aV+jNIS7Hc//fnfi7MPL7jjmbNwCJYAc45Bz7/eVizZmsZ7LQTnHLKPd/A88+HI46A225rpl2zZuFp+27mZ7n9dthxx5X5M0hLsdz/92e/3tq1zRrBnXc2rz2zqWhCUnP/Mu2hDRs21KZNm7qOsbB/+zc48MBmtfAd74APfrAZ7z4CaXXr+T6CJF+uqg3bnc4iGFMVPPvZcPbZcMEF8NjHdp1IkoDRi8BNQ+M65RQ46yw44QRLQNKK5HkE4/jWt+ClL21W3f7gD7pOI0lLYhEs1ec/D09+crND59RTm507krQCWQRLMbN3/9prmz38117bdSJJWjKLYCk+/enm2F6Au+5q9uxL0gplESzFzTc339esmcoxvpI0SVM/aijJg4FTgQcABZxYVW+ddo4l+/GP4QMfgIMPhuc8x2PnJa14XRw+eifwP6rqoiQ/AXw5yaer6usdZLn3Tj4ZvvtdeN/7musKSdIKN/VNQ1V1fVVd1D7+AXA5sM+0cyzJbbfBX/wFHH54c8SQJK0CnZ5QluQhwCHAhfM8txHYCLDffvtNNdeCTjmlOULo3e9uDhuVpFWgs0tMJNkVOBd4XVV9aLFpe3GJidtvh4c/HPbeG/75ny0CSb3X60tMJNkBOAs4fXsl0Bvvex9ccw28612WgKRVZer7CJIEeDdweVW9adrzX5I77oDXvQ4OPRSOPLLrNJK0rLo4j+Bw4PnAU5Jc0n49rYMcozv9dLj6anjNa1wbkLTqTH3TUFV9AVg5n6Z33gnHHw+PeQw8/eldp5GkZedlqLfnjDPgqqvgIx9xbUDSqrS6LzFx7LHNjZ/ve1944hObi8Vtz/nnN+cKnH9+cx2h44+Hgw6Co4+efF5J6sDqXSM49thm2/6M886DJzyhuW/A/vvP/2+uugre/OamAHbaCY47Dq68Es4807UBSavW6r1V5V57NfcSXqq1a2HPPeEBD4BLL20uMCdJK8io5xGs3k+3o46657h165p7C1933fxfZ5/dXE10xubN8OpXWwKSVrXVu2notNOa72ee2XyQH3poc1/hxa4UevTRzfRHH91sHnrgA+FZz5pOXknqyOr+U/e005rLRv/wh3DuuaNdLvr667c+vuEGOOmkyeWTpB5Y3UWwFGedtfiwJK0yFsFcz3zm4sOStMqs3n0ES7VxY/P9rLOaEpgZlqRVyiKYz8aNFoCkwXDTkCQNnEUgSQNnEUjSwFkEkjRwFoEkDZxFIEkDZxFI0sBZBJI0cBaBJA2cRSBJA2cRSNLAWQSSNHAWgSQNnEUgSQNnEUjSwFkEkjRwFoEkDZxFIEkDZxFI0sBZBJI0cBaBJA2cRSBJA2cRSNLAWQSSNHCdFEGSI5NckeRbSV7ZRQZJUmPqRZBkLfC/gaOARwG/luRR084hSWp0sUZwGPCtqvp2Vd0OvB/41Q5ySJKAdR3Mcx/gO7OGrwV+bu5ESTYCG9vBW5NcMYVsAD8J/OuU5rUUfc8HZlwufc/Y93xgxv80ykRdFMFIqupE4MRpzzfJpqraMO35jqrv+cCMy6XvGfueD8w4qi42DV0HPHjW8L7tOElSB7oogi8BD0/y0CQ7As8FPtpBDkkSHWwaqqo7k7wE+EdgLXByVV027RyLmPrmqHup7/nAjMul7xn7ng/MOJJUVdcZJEkd8sxiSRo4i0CSBs4i0LJK8pNdZ5B071gEWrIkRyW5OskXkhyS5DLgwiTXJjmi63wrRZJ1SX4nySeTfKX9+kSS302yQw/y3TfJHyX5wyQ7J3lhko8meUOSXbvOB5DkJTN/hCR5WJLzktyc5MIkP9t1PoAka5K8KMnHk1ya5KIk70/ypM6zDXVncZIHA39Fc6bzJ4C/qqo72uc+UlX/peN8L6qqk9vH+wLvBR4LfB14YVVd2WU+gCSXAL8G7A58DHh6VV2Q5JHA6VX1mE4DbkeSr1ZV5x8SSc4AbqZ5j69tR+8LvADYs6r+a1fZAJL8Pc3VAO4DHABcDnwAOBp4YFU9v8N4ACS5rKoe3T7+OHBSVX24/ZB9XVUd3mlAIMl7gH8B/gl4FnAL8HngOODsqvqbzrINuAg+DZwFXAC8mOZD9hlVdWOSi6vqkI7zXTTzQdr+Iv4TcBLNdZleUlWd/8U9J+N3qurBs567pKoO7i7d3TmOWegp4F1VtX6aeeYNklxZVT99b5+blpn3MkmA64EHVVW1w5dW1YFd5gNIckVVHdA+/lJVHTrrua/0JOM2OZJcUFWPS7ITcElVPbKrbL29xMQUrK+qd7WPX5rkWOC8JEcDfWvHn66q57SPP5zkNZ2m2ermJL8D3A+4KckrgL8Hngrc2mmyrT4AnM787+nOU86ykH9L8mzgrKraAs1mBODZwE2dJpul/fD/h2r/emyH+/K7cmaSU4DX0vyO/D7wYeApwDVdBpvljiT7V9VVSR4D3A5QVbd1vRyHXAQ7JNm5qn4MUFWnJbmB5kS3XbqNBsC+Sd5G85fr+iQ7zGy6Ajrfbtx6AfAnwBbgP9NsJvpHmtXf3+4w12xfAf66qr4294kkT+0gz3yeC/wl8I4kN9G857sD57TPdW1Tkl2r6taqetHMyCT7Az/oMNfdqup/JnkhcAawP7ATzUUrPwI8r8Nos/0h8Nkkt9OcTPtcgCTraTatdmbIm4ZeAVxUVefOGX8I8Iaq+qVukt2d4wVzRn20qm5K8kDgZVX1qi5yrTRJfgH4l6q6x1+FSTZU1aYOYi0oyV4AVXVj11lGkSQ11A+RJWg3p+1VVb26Iupgi0CTleQ1VfXarnOsFEkeQbP/Z5921HU0OxC/0V2qrRbI99Gqury7VNsy49J5+Og8erQNfl59z9f6ra4DzEjyy0lenOQhc8a/aP5/MV1JjqO5QVOAL7ZfAd6fHtzKdZF8Z/QhH5hx7GyuEdxTkmuqar+ucyykL/mS3LLQU8B9qqrzfVBJXg88AbgIeAbwlpnD9GYf9dSlJFcCj561D2hm/I7AZVX18G6S3Z2j1/naLGYcQ+e/qF3Z3ofYNLPMG6Ln+Vo3A4dW1ffmPpHkO/NM34VnAIe0V739M+DvkvxUVb2CZln2wRZgb5qd7LM9qH2ua33PB2Ycy2CLgP5/iPU9H8CpNLfCu0dG4O+mnGUh66rqToCqujnJM4ATk3wQ2LHbaHf7feAzSb7J1tu47gc8DHhJZ6m26ns+MONYBrtpKMnxNDtpvjjPc39ZVcd1EGt2hl7nWymSfIzmrPG5R4cdD7yqqnqxn6w9b+Awtt2J+KWququ7VFv1PR+YcRyDLQINQ5L7AFTVj+Z5bp+q8japGjyLQJIGrherxZKk7gx5Z7GWSXuK/L7AXcC3q6ov1xlaUZI8gFnbjuc7UKBLfc8HZlyqwW8a6vuHWJ/zJXkU8DbgITRHP1wM3B84F3h5Vf17d+m21fPleDDwLmA3mp2H0GS9GfjvVXVRV9mg//nAjGOrqkF+AY+iubTzt2iuAnghcDVwCrCb+UbKeAFwQPv4MOC97ePfBs7sOt8KWo6XAD83z/jH0Vzm2XxmnOjXkPcRnAz8XlU9jObM029U1UOB/wu8u9Nkjb7ng+bs4SsAqjnM9Wfbx/8HeHSXwWZZCctxl6q6cO7IqrqAflwJt+/5wIxjGeymoSSXVtVBs4Zn32Tl8urwJhFthl7na3N8iGZz0DnAMcAeVfWiNLdX/Fq1Nwrp0gpZjm+juXTyqWw90ejBwG8AV1dVtycb9TwfmHHsbAMugl5/iPU9H0CS3YFX0Wx+uRQ4oap+kGQ34JHtXzqdWgnLESDJUcx/Vcp/6C7VVn3PB2Ycx5CLoNcfYn3Pt1K4HKXtG2wRaLKSnFhVG7vOsRIkWUtz2e59gU9U1T/Peu5Pqur4zsLR/3xtDjOOYcg7ixeU5MSuMyymL/mS7LnA117A07rOtz19WY7A3wJPBG4E/ibJm2Y9d0w3kbbR93xgxrEMdo0gyZ4LPUVzKNe+08xzjxA9zweQ5C6aS+rOvpxztcP7VFXnV/dcIcvxK1V1YPt4HfAO4Cdp7gF9QVUdYr7FmXE8Qz6zeDMLf4jdv5NE2+p7PoBvA0fU/PcD7sulslfCcry7MKu5ZPbGNHehOwfYtbNUW/U9H5hxLEMugr5/iPU9H8BbgD2Ae2QE3jDlLAtZCctxU5Ijq+qTMyOq6rVJvgu8s8NcM/qeD8w4liFvGvo94AtVdek8z7202tsZdqXv+VYKl6O0fYMtAk2GRwstj74vx77nAzPeGx41NEuPjiKZV9/ztTZ0HWB7XI7Lou/5wIwjswi21Ys3ZRF9zwfw/a4DjMDlOL6+5wMzjswi2FYv3pRF9D0fVXVk1xlG4HIcU9/zgRnvDYtglr68KQvpW74ka5P8TpI/T3L4nOf+pKtc2+NyvHf6ng/MOK7BFkGf35Q2Q6/ztWafKfm2Pp0pOcPluCz6ng/MOJbBFgE9flNafc8HcFhV/XpVvQX4OWDXJB9KshPbnsDVJZfj+PqeD8w4liEXQW/flFbf88GcMyXbw+AuoQdnSs7ichxf3/OBGccy5CLo7ZvS6ns+aM+UnD2iql4LvIfmPsZ94HIcX9/zgRnHMtgTypKcBpw2+3TvdvxvAe+sqh26SXZ3jl7nWylcjtL2DbYItDySPIL577h0eXepVp6+L8e+5wMzjmPQRdDXN2XGCsh3HM0ldN8PXNuO3hd4LvD+qjqhq2yzuRzH0/d8YMaxsw21CPr8pkD/8wEkuRJ4dFXdMWf8jsBlVfXwbpJtk8XlOKa+52uzmHEMQ74M9YuZ/015E3AZ0PUHRN/zAWwB9qa53v9sD2qf6wOX4/j6ng/MOJYhF0Fv35RW3/MB/D7wmSTfBGau7b8f8DDgJZ2l2pbLcXx9zwdmHMuQNw0dCbwdmPdNmXuUybT1Pd+MJGuAw9h2+/uXququ7lJt5XJcHn3PB2Ycx2CLAPr7pszoe76VwuUoLW7QRSBJGvaZxZIkLAJJGrwhHzUk3UOSvYDPtIMPBO4CNrfDP6yqx3cSTJog9xFIC0jyZ8CtVfXXXWeRJslNQ9KIktzafn9SknOTnJ3k20lOSPK8JF9M8tUk+7fTrU9yVpIvtV+HLz4HqRsWgbQ0BwG/CzwSeD7w01V1GHAS8NJ2mrcCb66qQ4Fnts9JveM+AmlpvlRV1wMkuQr4VDv+q8CT28dPBR6V3H3/m/sl2bWqbp1qUmk7LAJpaW6b9XjLrOEtbP29WgM8rqp+PM1g0r3lpiFpcj7F1s1EJDm4wyzSgiwCaXJeBmxI8pUkX6fZpyD1joePStLAuUYgSQNnEUjSwFkEkjRwFoEkDZxFIEkDZxFI0sBZBJI0cP8fcAQ6N0FxwIYAAAAASUVORK5CYII=
+<img src="data:image/png;base64,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
 "
 >
 </div>
@@ -13064,8 +13274,9 @@ Backlog score 2.62 / 10
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As you can see there is a lot space for improvement on above chart. I'd recommend to send it to your team and especially PO every week.</p>
+<p>As you can see there is a lot space for improvement on chart below. I'd recommend to send it to your team and especially PO every week.</p>
 <p>If you're interested in other notebooks that could help you working with agile teams take a look at this Github repository: <a href="https://github.com/robert-krasinski/JiraAndPythonForManagers">https://github.com/robert-krasinski/JiraAndPythonForManagers</a></p>
+
 
 </div>
 </div>
